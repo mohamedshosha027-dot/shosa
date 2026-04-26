@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EliteHomes</title>
+    <meta name="description" content="EliteHomes - Premium real estate platform. Find your dream home with 15,000+ listings, expert agents, and exceptional service." />
+    <meta name="keywords" content="real estate, homes, properties, buy, sell, rent, investment" />
+    <meta name="author" content="EliteHomes" />
+    <title>EliteHomes - Find Your Dream Home</title>
 
     <link rel="stylesheet" href="./css/all.min.css" />
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
@@ -16,10 +19,13 @@
   </head>
 
   <body>
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!--    *******************1-->
     <section class="home" id="home">
       <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" role="navigation" aria-label="Main navigation">
           <div class="container-fluid head-nav">
             <a class="navbar-brand" href="#">
               <span class="nav-brand">EliteHomes</span>
@@ -37,30 +43,22 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
               <ul class="navbar-nav gap-3 ms-auto right-navbar">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">Home</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    data-bs-toggle="dropdown"
-                    >Properties</a
-                  >
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Featured</a></li>
-                  </ul>
+                  <a class="nav-link active" href="#home">Home</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Services</a>
+                  <a class="nav-link" href="#properties">Properties</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#services">Services</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Testimonials</a>
+                  <a class="nav-link" href="#testimonials">Testimonials</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="#contact">Contact</a>
                 </li>
               </ul>
             </div>
@@ -68,7 +66,7 @@
         </nav>
       </header>
 
-      <div class="container">
+      <div class="container" id="main-content">
         <div class="content-home text-center py-3">
           <h1 class="text-white fw-bold pb-3">Find Your Dream Home</h1>
           <p class="text-white">
@@ -78,19 +76,21 @@
           </p>
         </div>
 
-        <form>
+        <form aria-label="Property Search Form" novalidate>
           <div class="row text-center">
             <div class="col-md-6">
-              <label>Location</label>
+              <label for="location">Location</label>
               <input
+                id="location"
                 type="text"
                 placeholder="Enter city, neighborhood, or ZIP code"
+                aria-required="true"
               />
             </div>
 
             <div class="col-md-3">
-              <label>Property Type</label>
-              <select>
+              <label for="property-type">Property Type</label>
+              <select id="property-type" aria-required="true">
                 <option>All Types</option>
                 <option>House</option>
                 <option>Apartment</option>
@@ -98,42 +98,42 @@
             </div>
 
             <div class="col-md-3">
-              <label>Price Range</label>
-              <select>
+              <label for="price-range">Price Range</label>
+              <select id="price-range" aria-required="true">
                 <option>Any Price</option>
                 <option>$0 - $500K</option>
               </select>
             </div>
 
             <div class="col-md-3">
-              <label>Bedrooms</label>
-              <select>
+              <label for="bedrooms">Bedrooms</label>
+              <select id="bedrooms" aria-required="true">
                 <option>Any</option>
                 <option>1+</option>
               </select>
             </div>
 
             <div class="col-md-3">
-              <label>Bathrooms</label>
-              <select>
+              <label for="bathrooms">Bathrooms</label>
+              <select id="bathrooms" aria-required="true">
                 <option>Any</option>
                 <option>1+</option>
               </select>
             </div>
 
             <div class="col-md-3">
-              <label>Min Sq Ft</label>
-              <input type="number" placeholder="1000" />
+              <label for="min-sqft">Min Sq Ft</label>
+              <input id="min-sqft" type="number" placeholder="1000" />
             </div>
 
             <div class="col-md-3">
-              <label>Max Sq Ft</label>
-              <input type="number" placeholder="5000" />
+              <label for="max-sqft">Max Sq Ft</label>
+              <input id="max-sqft" type="number" placeholder="5000" />
             </div>
 
             <div class="button">
-              <button>
-                <i class="fa-solid fa-magnifying-glass"></i>
+              <button type="submit" aria-label="Search Properties">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                 Search Properties
               </button>
             </div>
@@ -164,7 +164,7 @@
       </div>
     </section>
     <!--    *******************2-->
-    <section class="py-5 properties">
+    <section class="py-5 properties" id="properties">
       <div class="container text-center">
         <span class="premium position-relative">Premium Collection</span>
         <h2 class="featured py-4">Featured Properties</h2>
@@ -179,7 +179,7 @@
           <div class="col-md-4">
             <div class="property-card">
               <div class="image-wrapper">
-                <img src="/images/images07.png" class="img-fluid" />
+                <img src="./images/images07.png" class="img-fluid" alt="Modern Luxury Estate" />
 
                 <span class="badge-featured">Featured</span>
 
@@ -214,8 +214,9 @@
                 <div class="small-img">
                   <div class="d-flex align-items-center">
                     <img
-                      src="/images/images08.jpg"
+                      src="./images/images08.jpg"
                       class="rounded-circle small-image"
+                      alt="Agent John Mitchell"
                     />
                     <span class="ms-2">John Mitchell</span>
                   </div>
@@ -229,7 +230,7 @@
           <div class="col-md-4">
             <div class="property-card">
               <div class="image-wrapper">
-                <img src="/images/images09.png" class="img-fluid" />
+                <img src="./images/images09.png" class="img-fluid" alt="Downtown Penthouse" />
 
                 <span class="badge-featured-2">New Listing</span>
 
@@ -264,8 +265,9 @@
                 <div class="small-img">
                   <div class="d-flex align-items-center">
                     <img
-                      src="/images/images10.jpg"
+                      src="./images/images10.jpg"
                       class="rounded-circle small-image"
+                      alt="Agent Emily Rodriguez"
                     />
                     <span class="ms-2">Emily Rodriguez </span>
                   </div>
@@ -278,7 +280,7 @@
           <div class="col-md-4">
             <div class="property-card">
               <div class="image-wrapper">
-                <img src="/images/images11.png" class="img-fluid" />
+                <img src="./images/images11.png" class="img-fluid" alt="Family Suburban Home" />
 
                 <span class="badge-featured-3">Price Drop</span>
 
@@ -311,8 +313,9 @@
                 <div class="small-img">
                   <div class="d-flex align-items-center">
                     <img
-                      src="/images/images12.jpg"
+                      src="./images/images12.jpg"
                       class="rounded-circle small-image"
+                      alt="Agent Michael Chen"
                     />
                     <span class="ms-2">Michael Chen </span>
                   </div>
@@ -329,7 +332,7 @@
       </div>
     </section>
     <!--    *******************3-->
-    <section class="py-5 services" id=" services ">
+    <section class="py-5 services" id="services">
       <div class="container text-center">
         <span class="premium position-relative">What We Offer </span>
         <h2 class="featured py-4">Our Services</h2>
@@ -466,7 +469,7 @@
                 <!-- img services-->
                 <div class="col-md-6">
                   <div class="img-services position-relative">
-                    <img class="" src="/images/images13.png" alt="family" />
+                    <img class="" src="./images/images13.png" alt="Home Buying Service" />
                     <div class="success-rate">
                       <h5>98%</h5>
                       <p>Success Rate</p>
@@ -545,7 +548,7 @@
                 <!-- img services-->
                 <div class="col-md-6">
                   <div class="img-services position-relative">
-                    <img class="" src="/images/images14.png" alt="family" />
+                    <img class="" src="./images/images14.png" alt="Home Selling Service" />
                     <div class="success-rate">
                       <h5>21 days</h5>
                       <p>Avg. Time to Sell</p>
@@ -622,7 +625,7 @@
                 <!-- img services-->
                 <div class="col-md-6">
                   <div class="img-services position-relative">
-                    <img class="" src="/images/images09.png" alt="family" />
+                    <img class="" src="./images/images09.png" alt="Rental Properties" />
                     <div class="success-rate">
                       <h5>5,000+</h5>
                       <p>Available Rentals</p>
@@ -699,7 +702,7 @@
                 <!-- img services-->
                 <div class="col-md-6">
                   <div class="img-services position-relative">
-                    <img class="" src="/images/images16.png" alt="family" />
+                    <img class="" src="./images/images16.png" alt="Real Estate Investment" />
                     <div class="success-rate">
                       <h5>15%</h5>
                       <p>Avg. Annual ROI</p>
@@ -774,7 +777,7 @@
                 <!-- img services-->
                 <div class="col-md-6">
                   <div class="img-services position-relative">
-                    <img class="" src="/images/images17.png" alt="family" />
+                    <img class="" src="./images/images17.png" alt="Commercial Real Estate" />
                     <div class="success-rate">
                       <h5>$2.5B</h5>
                       <p>Commercial Volume</p>
@@ -790,13 +793,9 @@
     <!-- ****     6    ****  -->
     <section
       class="Client-Stories py-5"
-      id="
-Testimonials"
+      id="testimonials"
     >
       <div class="container text-center">
-        <span class="premium position-relative text-white">
-          Client Stories
-        </span>
 
         <h2 class="featured h-client">What Our Clients Say</h2>
 
@@ -855,9 +854,9 @@ Testimonials"
 
                 <div class="card-client">
                   <img
-                    src="/images/images08.jpg"
+                    src="./images/images08.jpg"
                     class="img-client rounded-circle"
-                    alt="man"
+                    alt="David Rodriguez - Real Estate Investor"
                   />
 
                   <div class="information">
@@ -891,9 +890,9 @@ Testimonials"
 
                 <div class="card-client">
                   <img
-                    src="/images/images10.jpg"
+                    src="./images/images10.jpg"
                     class="img-client rounded-circle"
-                    alt="man"
+                    alt="Amanda Chen - Manhattan Seller"
                   />
 
                   <div class="information">
@@ -927,9 +926,9 @@ Testimonials"
 
                 <div class="card-client">
                   <img
-                    src="/images/images12.jpg"
+                    src="./images/images12.jpg"
                     class="img-client rounded-circle"
-                    alt="man"
+                    alt="Michael Foster - CEO of TechStart Inc."
                   />
 
                   <div class="information">
@@ -966,7 +965,7 @@ Testimonials"
       </div>
     </section>
     <!-- **    7   -->
-    <section class="Help-Center py-5" id="#faq">
+    <section class="Help-Center py-5" id="faq">
       <div class="container text-center">
         <span class="premium position-relative text-white"> Help Center </span>
 
@@ -1192,7 +1191,7 @@ Testimonials"
       </div>
     </section>
     <!--   **8    -->
-    <section class="contact py-5" id="#contact">
+    <section class="contact py-5" id="contact">
       <div class="container">
         <div class="container text-center">
           <span class="premium position-relative text-white">
@@ -1417,30 +1416,87 @@ Testimonials"
         </div>
       </div>
     </section>
-    <!-- ** 9   -->
-    <section class="last-section py-5">
-      <div
-        class="container d-flex justify-content-between align-items-center last"
-      >
-        <span>EliteHomes </span>
-        <p>© 2025 EliteHomes. All rights reserved.</p>
-        <div class="link d-flex">
-          <div class="link1">
-            <a><i class="fa-brands fa-facebook-f"></i></a>
+    <!-- ** Footer Section ** -->
+    <footer class="footer-section bg-dark text-white py-5">
+      <div class="container">
+        <div class="row mb-4">
+          <!-- Company Info -->
+          <div class="col-md-4 mb-4">
+            <h5 class="mb-3">EliteHomes</h5>
+            <p class="footer-text">Premium real estate solutions for your dream home. Trusted by thousands of homebuyers and sellers.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="footer-link me-2"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="footer-link me-2"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" class="footer-link me-2"><i class="fa-brands fa-square-instagram"></i></a>
+              <a href="#" class="footer-link"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
           </div>
-          <div class="link2">
-            <a><i class="fa-brands fa-twitter"></i></a>
+
+          <!-- Quick Links -->
+          <div class="col-md-2 mb-4">
+            <h5 class="mb-3">Quick Links</h5>
+            <ul class="footer-links list-unstyled">
+              <li><a href="#home" class="footer-link">Home</a></li>
+              <li><a href="#services" class="footer-link">Services</a></li>
+              <li><a href="#properties" class="footer-link">Properties</a></li>
+              <li><a href="#contact" class="footer-link">Contact</a></li>
+            </ul>
           </div>
-          <div class="link3">
-            <a><i class="fa-brands fa-square-instagram"></i></a>
+
+          <!-- Services -->
+          <div class="col-md-2 mb-4">
+            <h5 class="mb-3">Services</h5>
+            <ul class="footer-links list-unstyled">
+              <li><a href="#" class="footer-link">Buying</a></li>
+              <li><a href="#" class="footer-link">Selling</a></li>
+              <li><a href="#" class="footer-link">Renting</a></li>
+              <li><a href="#" class="footer-link">Investing</a></li>
+            </ul>
           </div>
-          <div class="link4">
-            <a><i class="fa-brands fa-linkedin"></i></a>
+
+          <!-- Contact Info -->
+          <div class="col-md-4 mb-4">
+            <h5 class="mb-3">Contact Us</h5>
+            <p class="footer-text mb-2">
+              <i class="fa-solid fa-map-marker-alt me-2"></i>
+              <span>123 Real Estate Ave, New York, NY 10001</span>
+            </p>
+            <p class="footer-text mb-2">
+              <i class="fa-solid fa-phone me-2"></i>
+              <a href="tel:+1234567890" class="footer-link">+1 (234) 567-890</a>
+            </p>
+            <p class="footer-text">
+              <i class="fa-solid fa-envelope me-2"></i>
+              <a href="mailto:info@elitehomes.com" class="footer-link">info@elitehomes.com</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="bg-secondary">
+
+        <!-- Copyright -->
+        <div class="row">
+          <div class="col-md-6">
+            <p class="footer-text mb-0">© 2025 EliteHomes. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="footer-text mb-0">
+              <a href="#" class="footer-link">Privacy Policy</a> • 
+              <a href="#" class="footer-link">Terms of Service</a> • 
+              <a href="#" class="footer-link">Cookie Policy</a>
+            </p>
           </div>
         </div>
       </div>
-    </section>
+    </footer>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Back to top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>
