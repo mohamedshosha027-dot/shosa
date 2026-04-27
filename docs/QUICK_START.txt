@@ -1,0 +1,23 @@
+ELITEHOMES QUICK START
+
+1. Open index.html in a browser.
+
+2. Optional: run a local server if you prefer.
+   Example:
+   python -m http.server 8080
+
+3. Main files:
+   - index.html
+   - css/style.css
+   - js/main.js
+
+4. Project docs:
+   - README.md
+   - DEVELOPER_GUIDE.md
+   - IMPROVEMENTS.md
+
+5. Quick checks:
+   - test the property search form
+   - test the contact form
+   - click the navigation links
+   - scroll down and use the back-to-top button

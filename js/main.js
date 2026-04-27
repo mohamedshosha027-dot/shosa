@@ -1,193 +1,251 @@
-// ===== FORM VALIDATION =====
+const searchForm = document.querySelector("#property-search-form");
+const contactForm =
+  document.querySelector('form[aria-label="Contact Form"]') ||
+  document.querySelector(".new-form-box form");
+const navbar = document.querySelector(".navbar");
+const scrollTopButton = document.getElementById("scrollTopBtn");
 
-// Validate search form
-const searchForm = document.querySelector('form[aria-label="Property Search Form"]');
-if (searchForm) {
-  searchForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const location = document.getElementById('location').value.trim();
-    const propertyType = document.getElementById('property-type').value;
-    const priceRange = document.getElementById('price-range').value;
-    
-    // Validation
+document.addEventListener("DOMContentLoaded", () => {
+  normalizeDisplayText();
+  setupBootstrapTooltips();
+  setupSmoothScrolling();
+  setupFavorites();
+  setupLazyImages();
+  setupSearchForm();
+  setupContactForm();
+  setupScrollToTop();
+  syncNavState();
+});
+
+function normalizeDisplayText() {
+  document.querySelectorAll(".content-two span").forEach((span) => {
+    const trimmed = span.textContent.trim();
+    if (trimmed && trimmed.length <= 3 && !/[a-z0-9]/i.test(trimmed)) {
+      span.innerHTML = "&bull;";
+    }
+  });
+
+  const liveChatPrompt = document.querySelector(".spaaa");
+  if (liveChatPrompt) {
+    liveChatPrompt.textContent = "Start chatting now";
+  }
+
+  const footerText = document.querySelectorAll(".footer-section .footer-text");
+  const copyrightLine = footerText[0];
+  const policyLine = footerText[footerText.length - 1];
+
+  if (copyrightLine) {
+    copyrightLine.innerHTML = "&copy; 2026 EliteHomes. All rights reserved.";
+  }
+
+  if (policyLine && policyLine.querySelectorAll("a").length === 3) {
+    policyLine.innerHTML = `
+      <a href="#" class="footer-link">Privacy Policy</a> &bull;
+      <a href="#" class="footer-link">Terms of Service</a> &bull;
+      <a href="#" class="footer-link">Cookie Policy</a>
+    `;
+  }
+}
+
+function setupSearchForm() {
+  if (!searchForm) return;
+
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const location = document.getElementById("location")?.value.trim() || "";
+    const propertyType = document.getElementById("property-type")?.value || "";
+    const priceRange = document.getElementById("price-range")?.value || "";
+
     if (!location) {
-      showAlert('Please enter a location', 'warning');
-      document.getElementById('location').focus();
-      return false;
+      showAlert("Please enter a location to start your search.", "warning");
+      document.getElementById("location")?.focus();
+      return;
     }
-    
-    if (propertyType === 'All Types') {
-      showAlert('Please select a property type', 'warning');
-      document.getElementById('property-type').focus();
-      return false;
-    }
-    
-    // If all validations pass
-    showAlert('Search submitted successfully! Redirecting to results...', 'success');
-    // Simulate search (in real app, this would submit to backend)
-    setTimeout(() => {
-      console.log('Form submitted with:', {
-        location,
-        propertyType,
-        priceRange
-      });
-    }, 1000);
+
+    showAlert(
+      `Searching ${propertyType === "All Types" ? "all property types" : propertyType.toLowerCase()} in ${location}${priceRange && priceRange !== "Any Price" ? ` within ${priceRange}` : ""}.`,
+      "success"
+    );
   });
 }
 
-// Validate contact form
-const contactForm = document.querySelector('form[aria-label="Contact Form"]') || 
-                    document.querySelector('.new-form-box form');
-if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const name = document.querySelector('input[placeholder="Name"]')?.value?.trim() || '';
-    const email = document.querySelector('input[placeholder="Email Address"]')?.value?.trim() || '';
-    const message = document.querySelector('textarea[placeholder="Your Message"]')?.value?.trim() || '';
-    
-    // Validation
-    if (!name) {
-      showAlert('Please enter your name', 'warning');
-      return false;
+function setupContactForm() {
+  if (!contactForm) return;
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const firstName = document.getElementById("contact-first-name")?.value.trim() || "";
+    const lastName = document.getElementById("contact-last-name")?.value.trim() || "";
+    const email = document.getElementById("contact-email")?.value.trim() || "";
+    const message = document.getElementById("contact-message")?.value.trim() || "";
+
+    if (!firstName) {
+      showAlert("Please enter your first name.", "warning");
+      document.getElementById("contact-first-name")?.focus();
+      return;
     }
-    
+
+    if (!lastName) {
+      showAlert("Please enter your last name.", "warning");
+      document.getElementById("contact-last-name")?.focus();
+      return;
+    }
+
     if (!email) {
-      showAlert('Please enter your email address', 'warning');
-      return false;
+      showAlert("Please enter your email address.", "warning");
+      document.getElementById("contact-email")?.focus();
+      return;
     }
-    
+
     if (!isValidEmail(email)) {
-      showAlert('Please enter a valid email address', 'warning');
-      return false;
+      showAlert("Please enter a valid email address.", "warning");
+      document.getElementById("contact-email")?.focus();
+      return;
     }
-    
+
     if (!message) {
-      showAlert('Please enter a message', 'warning');
-      return false;
+      showAlert("Please share a few details about what you need.", "warning");
+      document.getElementById("contact-message")?.focus();
+      return;
     }
-    
-    // If all validations pass
-    showAlert('Thank you! Your message has been sent successfully.', 'success');
+
+    showAlert(`Thanks, ${firstName}. Your message is on its way to the team.`, "success");
     contactForm.reset();
   });
 }
 
-// Email validation helper
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+function setupSmoothScrolling() {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (event) => {
+      const targetId = anchor.getAttribute("href");
+      if (!targetId || targetId === "#") return;
+
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      event.preventDefault();
+      const navHeight = navbar?.offsetHeight || 0;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    });
+  });
 }
 
-// Show alert function
-function showAlert(message, type = 'info') {
-  const alertClass = type === 'success' ? 'alert-success' : 
-                     type === 'warning' ? 'alert-warning' : 'alert-info';
-  
-  const alertHTML = `
-    <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
-      ${message}
+function setupFavorites() {
+  document.querySelectorAll(".favorite").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      const icon = button.querySelector("i");
+      if (!icon) return;
+
+      const isActive = icon.classList.contains("fa-solid");
+      icon.classList.toggle("fa-solid", !isActive);
+      icon.classList.toggle("fa-regular", isActive);
+      button.classList.toggle("is-active", !isActive);
+
+      showAlert(
+        isActive ? "Property removed from saved homes." : "Property added to saved homes.",
+        isActive ? "info" : "success"
+      );
+    });
+  });
+}
+
+function setupLazyImages() {
+  const images = document.querySelectorAll("img");
+  images.forEach((img) => {
+    img.loading = "lazy";
+  });
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver((entries, instance) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      instance.unobserve(entry.target);
+    });
+  });
+
+  images.forEach((img) => {
+    img.classList.add("fade-image");
+    observer.observe(img);
+  });
+}
+
+function setupBootstrapTooltips() {
+  if (typeof bootstrap === "undefined") return;
+
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
+    new bootstrap.Tooltip(element);
+  });
+}
+
+function setupScrollToTop() {
+  if (!scrollTopButton) return;
+
+  scrollTopButton.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  window.addEventListener("scroll", syncNavState);
+}
+
+function syncNavState() {
+  const isScrolled = window.scrollY > 24;
+  navbar?.classList.toggle("is-scrolled", isScrolled);
+
+  if (scrollTopButton) {
+    scrollTopButton.classList.toggle("is-visible", window.scrollY > 320);
+  }
+}
+
+function showAlert(message, type = "info") {
+  const host = getAlertHost();
+  const alert = document.createElement("div");
+  const alertClass =
+    type === "success"
+      ? "alert-success"
+      : type === "warning"
+        ? "alert-warning"
+        : "alert-info";
+
+  alert.className = `alert ${alertClass} alert-dismissible fade show shadow-sm`;
+  alert.role = "alert";
+  alert.innerHTML = `
+    <div class="d-flex align-items-start justify-content-between gap-3">
+      <span>${message}</span>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   `;
-  
-  const container = document.querySelector('.container') || document.body;
-  const alertDiv = document.createElement('div');
-  alertDiv.innerHTML = alertHTML;
-  container.insertBefore(alertDiv.firstElementChild, container.firstChild);
+
+  host.prepend(alert);
+  window.setTimeout(() => {
+    alert.remove();
+  }, 4500);
 }
 
-// ===== SMOOTH SCROLLING FOR NAVIGATION LINKS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    
-    // Don't prevent default for dropdown toggles
-    if (!this.classList.contains('dropdown-toggle')) {
-      const target = document.querySelector(href);
-      if (target) {
-        // Adjust for fixed navbar
-        const navHeight = document.querySelector('nav').offsetHeight;
-        const targetPosition = target.offsetTop - navHeight;
-        
-        // Smooth scroll with custom offset for fixed header
-        setTimeout(() => {
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-        }, 100);
-      }
-    }
-  });
-});
+function getAlertHost() {
+  let host = document.querySelector(".alert-stack");
 
-// ===== FAVORITE BUTTON FUNCTIONALITY =====
-document.querySelectorAll('.favorite').forEach(button => {
-  button.addEventListener('click', function(e) {
-    e.preventDefault();
-    const icon = this.querySelector('i');
-    
-    if (icon.classList.contains('fa-regular')) {
-      icon.classList.remove('fa-regular');
-      icon.classList.add('fa-solid');
-      this.style.backgroundColor = '#ffe6e6';
-      showAlert('Property added to favorites!', 'success');
-    } else {
-      icon.classList.remove('fa-solid');
-      icon.classList.add('fa-regular');
-      this.style.backgroundColor = 'white';
-      showAlert('Property removed from favorites!', 'info');
-    }
-  });
-});
-
-// ===== LAZY LOADING FOR IMAGES =====
-if ('IntersectionObserver' in window) {
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.style.opacity = '1';
-        observer.unobserve(img);
-      }
-    });
-  });
-  
-  document.querySelectorAll('img').forEach(img => {
-    img.style.opacity = '0';
-    img.style.transition = 'opacity 0.3s ease-in-out';
-    imageObserver.observe(img);
-  });
-}
-
-// ===== INITIALIZE TOOLTIPS AND POPOVERS =====
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize Bootstrap tooltips if available
-  if (typeof bootstrap !== 'undefined') {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+  if (!host) {
+    host = document.createElement("div");
+    host.className = "alert-stack";
+    document.body.appendChild(host);
   }
-});
 
-// ===== SCROLL TO TOP BUTTON =====
-const scrollTopButton = document.getElementById('scrollTopBtn');
-if (scrollTopButton) {
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      scrollTopButton.style.display = 'block';
-    } else {
-      scrollTopButton.style.display = 'none';
-    }
-  });
-  
-  scrollTopButton.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
+  return host;
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
